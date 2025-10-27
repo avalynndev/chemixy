@@ -17,7 +17,7 @@ export default function Home() {
         <div className="pointer-events-none"></div>
       </main>
       <CompoundPage />
-      <LabPage/>
+      <LabPage />
     </>
   );
 }

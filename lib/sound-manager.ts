@@ -27,7 +27,7 @@ class SoundManager {
     frequency: number,
     duration: number,
     type: OscillatorType = "sine",
-    volume: number = 0.3
+    volume: number = 0.3,
   ) {
     if (!this.enabled) return;
 
@@ -45,7 +45,7 @@ class SoundManager {
       gainNode.gain.setValueAtTime(volume, ctx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(
         0.01,
-        ctx.currentTime + duration
+        ctx.currentTime + duration,
       );
 
       oscillator.start(ctx.currentTime);

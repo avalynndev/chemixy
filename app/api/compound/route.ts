@@ -41,12 +41,12 @@ export async function POST(req: NextRequest) {
       !Array.isArray(elements) ||
       elements.length < 2 ||
       !elements.every(
-        (el) => el.id && ELEMENTS_MAP[el.id] && typeof el.count === "number"
+        (el) => el.id && ELEMENTS_MAP[el.id] && typeof el.count === "number",
       )
     ) {
       return NextResponse.json(
         { error: "At least 2 valid elements with counts are required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -136,7 +136,7 @@ If the compound does **not** exist, respond with: "keerthi" for all the strings,
         discoveryYear: 1783,
         category: "oxide",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

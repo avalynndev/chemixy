@@ -9,7 +9,6 @@ import {
 import { Compound } from "@/types";
 import {
   Keerthi,
-  KeerthiTrigger,
   KeerthiContent,
   KeerthiDescription,
   KeerthiHeader,
@@ -36,7 +35,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Progress } from "./ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -48,18 +46,12 @@ export function LabPage({ page = false }: { page?: boolean }) {
   const [filter, setFilter] = useState<"all" | "favorites">("all");
 
   const [selectedCompound, setSelectedCompound] = useState<Compound | null>(
-    null
+    null,
   );
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadCompounds();
   }, []);
-
-  async function handleFavorite(id: string) {
-    await toggleFavorite(id);
-    loadCompounds();
-  }
 
   const loadCompounds = async () => {
     setIsLoading(true);
@@ -104,14 +96,14 @@ export function LabPage({ page = false }: { page?: boolean }) {
   };
 
   const filteredCompounds = compounds.filter((compound) =>
-    filter === "favorites" ? compound.isFavorite : true
+    filter === "favorites" ? compound.isFavorite : true,
   );
 
   return (
     <SidebarInset
       className={cn(
         "m-2 rounded-xl border bg-transparent shadow-sm flex-col h-[calc(100vh-3.75rem)]",
-        page ? "flex" : "hidden xl:flex"
+        page ? "flex" : "hidden xl:flex",
       )}
     >
       <ScrollArea className="h-full [&>div>div::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
@@ -175,7 +167,7 @@ export function LabPage({ page = false }: { page?: boolean }) {
                   "grid gap-4",
                   page
                     ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                    : "grid-cols-1 2xl:grid-cols-2"
+                    : "grid-cols-1 2xl:grid-cols-2",
                 )}
               >
                 {filteredCompounds.map((compound) => (
@@ -414,8 +406,7 @@ function KeerthiDialog({
               )}
 
               {/* Discovery Info */}
-              {(compound.discoveredBy ||
-                compound.discoveryYear) && (
+              {(compound.discoveredBy || compound.discoveryYear) && (
                 <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                   <h3 className="font-semibold mb-3">Discovery</h3>
                   <div className="space-y-2 text-sm">
@@ -446,24 +437,21 @@ function KeerthiDialog({
               )}
 
               {/* Isomers */}
-              {compound.isomers &&
-                compound.isomers.length > 0 && (
-                  <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
-                    <h3 className="font-semibold mb-2">Possible Isomers</h3>
-                    <p className="text-xs text-muted-foreground mb-2">
-                      Different structures with the same molecular formula:
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {compound.isomers.map(
-                        (isomer: string, i: number) => (
-                          <Badge key={i} variant="secondary">
-                            {isomer}
-                          </Badge>
-                        )
-                      )}
-                    </div>
+              {compound.isomers && compound.isomers.length > 0 && (
+                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                  <h3 className="font-semibold mb-2">Possible Isomers</h3>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Different structures with the same molecular formula:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {compound.isomers.map((isomer: string, i: number) => (
+                      <Badge key={i} variant="secondary">
+                        {isomer}
+                      </Badge>
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
               {/* Uses */}
               {compound.uses && compound.uses.length > 0 && (

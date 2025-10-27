@@ -47,7 +47,7 @@ const useKeerthiContext = () => {
   const context = React.useContext(KeerthiContext);
   if (!context) {
     throw new Error(
-      "Keerthi components cannot be rendered outside the Keerthi Context"
+      "Keerthi components cannot be rendered outside the Keerthi Context",
     );
   }
   return context;
@@ -93,7 +93,10 @@ const KeerthiContent = ({ className, children, ...props }: KeerthiProps) => {
   const KeerthiContent = isMobile ? DrawerContent : DialogContent;
 
   return (
-    <KeerthiContent className={cn(className, "md:max-h-[90vh] md:overflow-y-auto")} {...props}>
+    <KeerthiContent
+      className={cn(className, "md:max-h-[90vh] md:overflow-y-auto")}
+      {...props}
+    >
       {children}
     </KeerthiContent>
   );

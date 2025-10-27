@@ -15,9 +15,7 @@ export default function Lab() {
             }}
           />
         </div>
-        <div className="pointer-events-none">
-        
-        </div>
+        <div className="pointer-events-none"></div>
       </main>
       <LabPage page />
     </>

@@ -1,7 +1,7 @@
 import { Compound } from "@/types";
 
 export async function generateCompound(
-  elements: { id: string; count: number }[]
+  elements: { id: string; count: number }[],
 ): Promise<Compound> {
   try {
     const response = await fetch("/api/compound", {
@@ -108,7 +108,7 @@ export function toggleFavorite(id: string) {
   const updated = saved.map((compound) =>
     compound.id === id
       ? { ...compound, isFavorite: !compound.isFavorite }
-      : compound
+      : compound,
   );
   localStorage.setItem("savedCompounds", JSON.stringify(updated));
 }

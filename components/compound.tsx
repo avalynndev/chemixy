@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Atom,
-  Beaker,
-  X,
-  Search,
-  Plus,
-  Minus,
-} from "lucide-react";
+import { Atom, Beaker, X, Search, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IconBook } from "@tabler/icons-react";
@@ -48,7 +41,7 @@ export function CompoundPage() {
   const { toggleSidebar } = useSidebar();
   const [isBrewing, setIsBrewing] = useState(false);
   const [generatedCompound, setGeneratedCompound] = useState<Compound | null>(
-    null
+    null,
   );
   const [dragOver, setDragOver] = useState(false);
   const [showAllElements, setShowAllElements] = useState(false);
@@ -78,8 +71,8 @@ export function CompoundPage() {
       if (existing) {
         setDroppedElements(
           droppedElements.map((el) =>
-            el.id === elementId ? { ...el, count: el.count + 1 } : el
-          )
+            el.id === elementId ? { ...el, count: el.count + 1 } : el,
+          ),
         );
       } else {
         setDroppedElements([...droppedElements, { id: elementId, count: 1 }]);
@@ -98,7 +91,7 @@ export function CompoundPage() {
           }
           return el;
         })
-        .filter((el) => el.count > 0)
+        .filter((el) => el.count > 0),
     );
     setGeneratedCompound(null);
   };
@@ -117,7 +110,7 @@ export function CompoundPage() {
 
     try {
       const compound = await generateCompound(
-        droppedElements.map((el) => ({ id: el.id, count: el.count }))
+        droppedElements.map((el) => ({ id: el.id, count: el.count })),
       );
       setGeneratedCompound(compound);
       setShowCompoundKeerthi(true);
@@ -142,7 +135,7 @@ export function CompoundPage() {
       setIsBrewing(true);
       try {
         const compound = await generateCompound(
-          selected.map((el) => ({ id: el.id, count: el.count }))
+          selected.map((el) => ({ id: el.id, count: el.count })),
         );
         setGeneratedCompound(compound);
         setShowCompoundKeerthi(true);
@@ -212,8 +205,8 @@ export function CompoundPage() {
                         ELEMENTS.filter(
                           (element) =>
                             element.name.toLowerCase().includes(query) ||
-                            element.id.toLowerCase().includes(query)
-                        )
+                            element.id.toLowerCase().includes(query),
+                        ),
                       );
                     }}
                   />
@@ -241,15 +234,15 @@ export function CompoundPage() {
                         onDragStart={(e) => handleDragStart(e, element.id)}
                         onClick={() => {
                           const existing = droppedElements.find(
-                            (el) => el.id === element.id
+                            (el) => el.id === element.id,
                           );
                           if (existing) {
                             setDroppedElements(
                               droppedElements.map((el) =>
                                 el.id === element.id
                                   ? { ...el, count: el.count + 1 }
-                                  : el
-                              )
+                                  : el,
+                              ),
                             );
                           } else {
                             setDroppedElements([
@@ -935,7 +928,7 @@ export function CompoundPage() {
                                         <Badge key={i} variant="secondary">
                                           {isomer}
                                         </Badge>
-                                      )
+                                      ),
                                     )}
                                   </div>
                                 </div>
@@ -952,7 +945,7 @@ export function CompoundPage() {
                                     {generatedCompound.uses.map(
                                       (use: string, i: number) => (
                                         <li key={i}>{use}</li>
-                                      )
+                                      ),
                                     )}
                                   </ul>
                                 </div>
