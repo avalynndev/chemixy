@@ -728,12 +728,10 @@ export function CompoundPage() {
                       {generatedCompound && (
                         <KeerthiBody className="overflow-y-auto">
                           <div className="space-y-4">
-                            {/* Description */}
                             <p className="text-sm">
                               {generatedCompound.description}
                             </p>
 
-                            {/* Physical Properties */}
                             <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                               <h3 className="font-semibold mb-3">
                                 Physical Properties

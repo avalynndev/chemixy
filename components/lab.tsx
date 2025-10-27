@@ -40,6 +40,7 @@ import { Progress } from "./ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { ELEMENTS } from "@/lib/constants";
 
 export function LabPage({ page = false }: { page?: boolean }) {
   const [compounds, setCompounds] = useState<Compound[]>([]);
@@ -100,26 +101,6 @@ export function LabPage({ page = false }: { page?: boolean }) {
   const handleFilterChange = (v: "all" | "favorites") => {
     setFilter(v);
     soundManager.playClick();
-  };
-
-  const formatTimestamp = (timestamp: number) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
-
-    if (diffMins < 1) return "Just now";
-    if (diffMins < 60) return `${diffMins}m ago`;
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays < 7) return `${diffDays}d ago`;
-
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
-    });
   };
 
   const filteredCompounds = compounds.filter((compound) =>
@@ -289,88 +270,238 @@ function KeerthiDialog({
   compound: Compound;
   onClose: () => void;
 }) {
+  const getElementById = (id: string) => ELEMENTS.find((el) => el.id === id);
+
   return (
     <Keerthi open={!!compound} onOpenChange={onClose}>
-      <KeerthiContent className="max-w-2xl">
+      <KeerthiContent className="max-w-3xl pb-12">
         <KeerthiHeader>
-          <KeerthiTitle>
-            {compound.name} ({compound.formula})
+          <KeerthiTitle className="text-2xl font-bold">
+            {compound?.name}
           </KeerthiTitle>
-          <KeerthiDescription>{compound.description}</KeerthiDescription>
+          <KeerthiDescription className="text-sm text-foreground/70">
+            {compound?.formula}
+          </KeerthiDescription>
         </KeerthiHeader>
 
-        <div className="space-y-2 mt-4 text-sm">
-          {compound.appearance && (
-            <p>
-              <strong>Appearance:</strong> {compound.appearance}
-            </p>
-          )}
-          {compound.color && (
-            <p>
-              <strong>Color:</strong> {compound.color}
-            </p>
-          )}
-          {compound.stateAtRoomTemp && (
-            <p>
-              <strong>State at Room Temperature:</strong>{" "}
-              {compound.stateAtRoomTemp}
-            </p>
-          )}
-          {compound.density && (
-            <p>
-              <strong>Density:</strong> {compound.density}
-            </p>
-          )}
-          {compound.meltingPoint && (
-            <p>
-              <strong>Melting Point:</strong> {compound.meltingPoint}
-            </p>
-          )}
-          {compound.boilingPoint && (
-            <p>
-              <strong>Boiling Point:</strong> {compound.boilingPoint}
-            </p>
-          )}
-          {compound.reactivity && (
-            <p>
-              <strong>Reactivity:</strong> {compound.reactivity}
-            </p>
-          )}
-          {compound.toxicity && (
-            <p>
-              <strong>Toxicity:</strong> {compound.toxicity}
-            </p>
-          )}
-          {compound.hazards && (
-            <p>
-              <strong>Hazards:</strong> {compound.hazards}
-            </p>
-          )}
-          {compound.flammability && (
-            <p>
-              <strong>Flammability:</strong> {compound.flammability}
-            </p>
-          )}
-          {compound.uses && compound.uses.length > 0 && (
-            <p>
-              <strong>Uses:</strong> {compound.uses.join(", ")}
-            </p>
-          )}
-          {compound.discoveredBy && (
-            <p>
-              <strong>Discovered By:</strong> {compound.discoveredBy}
-            </p>
-          )}
-          {compound.discoveryYear && (
-            <p>
-              <strong>Discovery Year:</strong> {compound.discoveryYear}
-            </p>
-          )}
-        </div>
+        {compound && (
+          <KeerthiBody className="overflow-y-auto">
+            <div className="space-y-4">
+              <p className="text-sm">{compound.description}</p>
 
-        <Button className="mt-4 w-full" onClick={onClose}>
-          Close
-        </Button>
+              <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                <h3 className="font-semibold mb-3">Physical Properties</h3>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  {compound.molecularWeight && (
+                    <div>
+                      <span className="text-muted-foreground">
+                        Molecular Weight:
+                      </span>{" "}
+                      {compound.molecularWeight}
+                    </div>
+                  )}
+                  {compound.density && (
+                    <div>
+                      <span className="text-muted-foreground">Density:</span>{" "}
+                      {compound.density}
+                    </div>
+                  )}
+                  {compound.meltingPoint && (
+                    <div>
+                      <span className="text-muted-foreground">
+                        Melting Point:
+                      </span>{" "}
+                      {compound.meltingPoint}
+                    </div>
+                  )}
+                  {compound.boilingPoint && (
+                    <div>
+                      <span className="text-muted-foreground">
+                        Boiling Point:
+                      </span>{" "}
+                      {compound.boilingPoint}
+                    </div>
+                  )}
+                  {compound.stateAtRoomTemp && (
+                    <div>
+                      <span className="text-muted-foreground">State:</span>{" "}
+                      {compound.stateAtRoomTemp}
+                    </div>
+                  )}
+                  {compound.appearance && (
+                    <div>
+                      <span className="text-muted-foreground">Appearance:</span>{" "}
+                      {compound.appearance}
+                    </div>
+                  )}
+                  {compound.color && (
+                    <div>
+                      <span className="text-muted-foreground">Color:</span>{" "}
+                      {compound.color}
+                    </div>
+                  )}
+                  {compound.odor && (
+                    <div>
+                      <span className="text-muted-foreground">Odor:</span>{" "}
+                      {compound.odor}
+                    </div>
+                  )}
+                  {compound.solubility && (
+                    <div className="col-span-2">
+                      <span className="text-muted-foreground">Solubility:</span>{" "}
+                      {compound.solubility}
+                    </div>
+                  )}
+                  {compound.pH && (
+                    <div>
+                      <span className="text-muted-foreground">pH:</span>{" "}
+                      {compound.pH}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Chemical Properties */}
+              {(compound.reactivity ||
+                compound.stability ||
+                compound.toxicity ||
+                compound.flammability) && (
+                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                  <h3 className="font-semibold mb-3">Chemical Properties</h3>
+                  <div className="space-y-2 text-sm">
+                    {compound.reactivity && (
+                      <div>
+                        <span className="text-muted-foreground">
+                          Reactivity:
+                        </span>{" "}
+                        {compound.reactivity}
+                      </div>
+                    )}
+                    {compound.stability && (
+                      <div>
+                        <span className="text-muted-foreground">
+                          Stability:
+                        </span>{" "}
+                        {compound.stability}
+                      </div>
+                    )}
+                    {compound.toxicity && (
+                      <div>
+                        <span className="text-muted-foreground">Toxicity:</span>{" "}
+                        {compound.toxicity}
+                      </div>
+                    )}
+                    {compound.flammability && (
+                      <div>
+                        <span className="text-muted-foreground">
+                          Flammability:
+                        </span>{" "}
+                        {compound.flammability}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Safety Information */}
+              {compound.hazards && (
+                <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
+                  <h3 className="font-semibold mb-2 text-destructive">
+                    Safety Information
+                  </h3>
+                  <p className="text-sm">{compound.hazards}</p>
+                </div>
+              )}
+
+              {/* Discovery Info */}
+              {(compound.discoveredBy ||
+                compound.discoveryYear) && (
+                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                  <h3 className="font-semibold mb-3">Discovery</h3>
+                  <div className="space-y-2 text-sm">
+                    {compound.discoveredBy && (
+                      <div>
+                        <span className="text-muted-foreground">
+                          Discovered by:
+                        </span>{" "}
+                        {compound.discoveredBy}
+                      </div>
+                    )}
+                    {compound.discoveryYear && (
+                      <div>
+                        <span className="text-muted-foreground">Year:</span>{" "}
+                        {compound.discoveryYear}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Category / Classification */}
+              {compound.category && (
+                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                  <h3 className="font-semibold mb-3">Classification</h3>
+                  <p className="text-sm">{compound.category}</p>
+                </div>
+              )}
+
+              {/* Isomers */}
+              {compound.isomers &&
+                compound.isomers.length > 0 && (
+                  <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                    <h3 className="font-semibold mb-2">Possible Isomers</h3>
+                    <p className="text-xs text-muted-foreground mb-2">
+                      Different structures with the same molecular formula:
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {compound.isomers.map(
+                        (isomer: string, i: number) => (
+                          <Badge key={i} variant="secondary">
+                            {isomer}
+                          </Badge>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+
+              {/* Uses */}
+              {compound.uses && compound.uses.length > 0 && (
+                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                  <h3 className="font-semibold mb-2">Common Uses</h3>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    {compound.uses.map((use: string, i: number) => (
+                      <li key={i}>{use}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Elements */}
+              <div className="flex flex-wrap gap-2">
+                {compound.elements.map((el) => {
+                  const element = getElementById(el.id);
+                  return element ? (
+                    <Badge key={el.id} variant="outline">
+                      <div
+                        className={`w-4 h-4 rounded ${element.color} flex items-center justify-center font-bold text-white text-[10px] mr-1`}
+                      >
+                        {element.icon}
+                      </div>
+                      {element.name} × {el.count}
+                    </Badge>
+                  ) : null;
+                })}
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <Button className="mt-4 w-full" onClick={onClose}>
+                  Close
+                </Button>
+              </div>
+            </div>
+          </KeerthiBody>
+        )}
       </KeerthiContent>
     </Keerthi>
   );
