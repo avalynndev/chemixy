@@ -27,7 +27,15 @@ export default function Navbar() {
   return (
     <header className="flex h-11 shrink-0 items-center justify-between gap-3 px-3 py-2 sm:px-2 pt-4">
       <div className="flex min-w-0 flex-1 items-center">
-        logo
+        <div className="mr-1 flex">
+          <Link
+            className="flex items-center text-sm size-8 w-auto rounded-md py-1.5 border-0"
+            href="/"
+          >
+            <Image src="/icon0.svg" alt="Icon" height="44" width="44" />
+            <span className="sr-only">Chemixy</span>
+          </Link>
+        </div>
 
         <span className="text-alpha-400 w-4 min-w-4 select-none text-center text-lg block">
           /

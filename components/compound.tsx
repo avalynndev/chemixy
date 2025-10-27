@@ -39,20 +39,7 @@ import { Badge } from "@/components/ui/badge";
 import { useSidebar } from "@/components/ui/sidebar";
 import { ELEMENTS } from "@/lib/constants";
 import { Compound } from "@/types";
-import { generateCompound } from "@/lib/craft";
-
-function saveCompound(compound: Compound) {
-  if (typeof window === "undefined") return;
-  const saved = getSavedCompounds();
-  saved.push(compound);
-  localStorage.setItem("savedCompounds", JSON.stringify(saved));
-}
-
-function getSavedCompounds(): Compound[] {
-  if (typeof window === "undefined") return [];
-  const saved = localStorage.getItem("savedCompounds");
-  return saved ? JSON.parse(saved) : [];
-}
+import { generateCompound, saveCompound } from "@/lib/craft";
 
 export function CompoundPage() {
   const [droppedElements, setDroppedElements] = useState<
@@ -190,12 +177,12 @@ export function CompoundPage() {
             <SidebarMenuItem className="block xl:hidden">
               <SidebarMenuButton
                 asChild
-                tooltip="Grimoire"
+                tooltip="Lab"
                 className="data-[slot=sidebar-menu-button]:p-1.5!"
               >
-                <Link href="/grimoire">
+                <Link href="/lab">
                   <IconBook className="size-5!" />
-                  <span className="text-base font-semibold">Grimoire</span>
+                  <span className="text-base font-semibold">Lab</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -533,7 +520,7 @@ export function CompoundPage() {
                     style={{ top: "20%" }}
                   >
                     {droppedElements.length === 0 && !isBrewing && (
-                      <div className="text-center bg-background/2 backdrop-blur-xl md:p-8 p-4 rounded-2xl shadow-xl text-white dark:text-foreground">
+                      <div className="text-center bg-background/2 backdrop-blur-xl md:p-8 p-4 rounded-2xl shadow-xl  dark:text-foreground">
                         <Atom className="md:w-16 md:h-16 h-8 w-8 mx-auto mb-4 opacity-50" />
                         <p className="md:text-lg text-xs font-medium">
                           Drop elements into the beaker
@@ -549,19 +536,28 @@ export function CompoundPage() {
                             return element ? (
                               <div
                                 key={el.id}
-                                className={`px-3 py-2 rounded-lg border bg-background/50 backdrop-blur-md flex items-center gap-2 shadow-sm`}
+                                className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 shadow-lg bg-background border`}
                               >
+                                <button
+                                  onClick={() => updateElementCount(el.id, -1)}
+                                  className="w-5 h-5 rounded bg-white/10 hover:bg-white/20 flex items-center justify-center"
+                                >
+                                  <Minus className="w-3 h-3" />
+                                </button>
                                 <div
                                   className={`w-6 h-6 rounded ${element.color} flex items-center justify-center font-bold text-white text-xs`}
                                 >
                                   {element.icon}
                                 </div>
                                 <span className="font-semibold">
-                                  {element.name}
+                                  {el.count}
                                 </span>
-                                <span className="text-muted-foreground ml-auto">
-                                  ×{el.count}
-                                </span>
+                                <button
+                                  onClick={() => updateElementCount(el.id, 1)}
+                                  className="w-5 h-5 rounded bg-white/10 hover:bg-white/20 flex items-center justify-center"
+                                >
+                                  <Plus className="w-3 h-3" />
+                                </button>
                                 <button
                                   onClick={() => {
                                     removeElement(el.id);
@@ -656,7 +652,7 @@ export function CompoundPage() {
                     {isBrewing && (
                       <div className="text-center bg-transparent backdrop-blur-sm p-10 rounded-2xl shadow-2xl">
                         <Atom className="w-20 h-20 mx-auto mb-4 animate-spin text-violet-500" />
-                        <p className="text-2xl font-semibold text-white">
+                        <p className="text-2xl font-semibold">
                           Creating compound...
                         </p>
                       </div>
@@ -692,12 +688,12 @@ export function CompoundPage() {
                     open={showCompoundKeerthi}
                     onOpenChange={setShowCompoundKeerthi}
                   >
-                    <KeerthiContent className="bg-zinc-900 text-white border border-zinc-700">
+                    <KeerthiContent className="border border-zinc-700">
                       <KeerthiHeader>
                         <KeerthiTitle className="text-red-400 flex items-center gap-2">
                           ⚠️ Experiment Failed
                         </KeerthiTitle>
-                        <KeerthiDescription className="text-zinc-300">
+                        <KeerthiDescription className="">
                           A proper compound couldn’t be formed with the elements
                           you chose.
                         </KeerthiDescription>
@@ -732,11 +728,13 @@ export function CompoundPage() {
                       {generatedCompound && (
                         <KeerthiBody className="overflow-y-auto">
                           <div className="space-y-4">
+                            {/* Description */}
                             <p className="text-sm">
                               {generatedCompound.description}
                             </p>
 
-                            <div className="bg-muted/30 rounded-lg p-4">
+                            {/* Physical Properties */}
+                            <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                               <h3 className="font-semibold mb-3">
                                 Physical Properties
                               </h3>
@@ -824,9 +822,12 @@ export function CompoundPage() {
                               </div>
                             </div>
 
+                            {/* Chemical Properties */}
                             {(generatedCompound.reactivity ||
-                              generatedCompound.stability) && (
-                              <div className="bg-muted/30 rounded-lg p-4">
+                              generatedCompound.stability ||
+                              generatedCompound.toxicity ||
+                              generatedCompound.flammability) && (
+                              <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                                 <h3 className="font-semibold mb-3">
                                   Chemical Properties
                                 </h3>
@@ -843,16 +844,86 @@ export function CompoundPage() {
                                     <div>
                                       <span className="text-muted-foreground">
                                         Stability:
-                                      </span>
+                                      </span>{" "}
+                                      {generatedCompound.stability}
+                                    </div>
+                                  )}
+                                  {generatedCompound.toxicity && (
+                                    <div>
+                                      <span className="text-muted-foreground">
+                                        Toxicity:
+                                      </span>{" "}
+                                      {generatedCompound.toxicity}
+                                    </div>
+                                  )}
+                                  {generatedCompound.flammability && (
+                                    <div>
+                                      <span className="text-muted-foreground">
+                                        Flammability:
+                                      </span>{" "}
+                                      {generatedCompound.flammability}
                                     </div>
                                   )}
                                 </div>
                               </div>
                             )}
 
+                            {/* Safety Information */}
+                            {generatedCompound.hazards && (
+                              <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
+                                <h3 className="font-semibold mb-2 text-destructive">
+                                  Safety Information
+                                </h3>
+                                <p className="text-sm">
+                                  {generatedCompound.hazards}
+                                </p>
+                              </div>
+                            )}
+
+                            {/* Discovery Info */}
+                            {(generatedCompound.discoveredBy ||
+                              generatedCompound.discoveryYear) && (
+                              <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                                <h3 className="font-semibold mb-3">
+                                  Discovery
+                                </h3>
+                                <div className="space-y-2 text-sm">
+                                  {generatedCompound.discoveredBy && (
+                                    <div>
+                                      <span className="text-muted-foreground">
+                                        Discovered by:
+                                      </span>{" "}
+                                      {generatedCompound.discoveredBy}
+                                    </div>
+                                  )}
+                                  {generatedCompound.discoveryYear && (
+                                    <div>
+                                      <span className="text-muted-foreground">
+                                        Year:
+                                      </span>{" "}
+                                      {generatedCompound.discoveryYear}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Category / Classification */}
+                            {generatedCompound.category && (
+                              <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                                <h3 className="font-semibold mb-3">
+                                  Classification
+                                </h3>
+                                <p className="text-sm">
+                                  {generatedCompound.category}
+                                </p>
+                              </div>
+                            )}
+
+                            {/* Isomers */}
                             {generatedCompound.isomers &&
                               generatedCompound.isomers.length > 0 && (
-                                <div className="bg-muted/30 rounded-lg p-4">
+                                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                                   <h3 className="font-semibold mb-2">
                                     Possible Isomers
                                   </h3>
@@ -872,9 +943,10 @@ export function CompoundPage() {
                                 </div>
                               )}
 
+                            {/* Uses */}
                             {generatedCompound.uses &&
                               generatedCompound.uses.length > 0 && (
-                                <div className="bg-muted/30 rounded-lg p-4">
+                                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                                   <h3 className="font-semibold mb-2">
                                     Common Uses
                                   </h3>
@@ -887,17 +959,8 @@ export function CompoundPage() {
                                   </ul>
                                 </div>
                               )}
-                            {generatedCompound.hazards && (
-                              <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
-                                <h3 className="font-semibold mb-2 text-destructive">
-                                  Safety Information
-                                </h3>
-                                <p className="text-sm">
-                                  {generatedCompound.hazards}
-                                </p>
-                              </div>
-                            )}
 
+                            {/* Elements */}
                             <div className="flex flex-wrap gap-2">
                               {generatedCompound.elements.map((el) => {
                                 const element = getElementById(el.id);
@@ -914,13 +977,14 @@ export function CompoundPage() {
                               })}
                             </div>
 
+                            {/* Actions */}
                             <div className="flex gap-3 pt-4">
                               <Button
                                 onClick={handleSaveCompound}
                                 className="font-semibold"
                                 variant="default"
                               >
-                                Add to Grimoire
+                                Add to Lab
                               </Button>
                               <Button
                                 onClick={() => {

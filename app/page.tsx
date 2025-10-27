@@ -1,4 +1,5 @@
 import { CompoundPage } from "@/components/compound";
+import { LabPage } from "@/components/lab";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <div className="pointer-events-none"></div>
       </main>
       <CompoundPage />
+      <LabPage/>
     </>
   );
 }

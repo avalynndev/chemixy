@@ -61,10 +61,15 @@ Your task: determine if a **real, scientifically valid compound** can be formed 
 ${elementDetails}.
 
 Rules:
-- You may only use the **exact** provided elements and counts. 
-  (Example: If input is 2 Hydrogen and 1 Oxygen → valid output: H₂O, invalid: H₂O₂ or HO.)
-- If a real compound exists, provide full structured data (no missing fields) as below.
-- If no known real compound can be formed, return a "keerthi" as the title of the answer.
+- You must **strictly** use only the given element counts — no extra or fewer atoms are allowed.
+- If the number of atoms doesn’t match a known stable compound in real-world chemistry, 
+  you must output "keerthi" for all text fields, and for options that dont take a string value keep anything else..
+- DO NOT guess or assume alternate atom counts.
+- Example:
+  - Input: Hydrogen (x2), Oxygen (x1) → Output: Water (H₂O)
+  - Input: Hydrogen (x1), Oxygen (x2) → Output: "keerthi"
+  - Input: Carbon (x1), Oxygen (x2) → Output: Carbon Dioxide (CO₂)
+
 
 Schema to follow:
 - formula (string)

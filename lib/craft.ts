@@ -81,3 +81,34 @@ export async function generateCompound(
     };
   }
 }
+
+export function saveCompound(compound: Compound) {
+  if (typeof window === "undefined") return;
+  const saved = getSavedCompounds();
+  saved.push(compound);
+  localStorage.setItem("savedCompounds", JSON.stringify(saved));
+}
+
+export function getSavedCompounds(): Compound[] {
+  if (typeof window === "undefined") return [];
+  const saved = localStorage.getItem("savedCompounds");
+  return saved ? JSON.parse(saved) : [];
+}
+
+export function deleteCompounds(id: string) {
+  if (typeof window === "undefined") return;
+  const saved = getSavedCompounds();
+  const filtered = saved.filter((compound) => compound.id !== id);
+  localStorage.setItem("savedCompounds", JSON.stringify(filtered));
+}
+
+export function toggleFavorite(id: string) {
+  if (typeof window === "undefined") return;
+  const saved = getSavedCompounds();
+  const updated = saved.map((compound) =>
+    compound.id === id
+      ? { ...compound, isFavorite: !compound.isFavorite }
+      : compound
+  );
+  localStorage.setItem("savedCompounds", JSON.stringify(updated));
+}

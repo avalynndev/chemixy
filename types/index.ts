@@ -35,5 +35,7 @@ export interface Compound {
   discoveredBy?: string;
   discoveryYear?: number;
   category?: string;
+
+  isFavorite?: string;
 }
 
