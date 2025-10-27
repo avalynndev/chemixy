@@ -295,6 +295,8 @@ export function CompoundPage() {
                     dragOver ? "scale-105" : "scale-100"
                   }`}
                 >
+                  {/* AI GENERATED SVG */}
+                  
                   <svg
                     viewBox="0 0 800 900"
                     className={`w-full h-auto drop-shadow-2xl ${
@@ -813,7 +815,6 @@ export function CompoundPage() {
                               </div>
                             </div>
 
-                            {/* Chemical Properties */}
                             {(generatedCompound.reactivity ||
                               generatedCompound.stability ||
                               generatedCompound.toxicity ||
@@ -859,7 +860,6 @@ export function CompoundPage() {
                               </div>
                             )}
 
-                            {/* Safety Information */}
                             {generatedCompound.hazards && (
                               <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
                                 <h3 className="font-semibold mb-2 text-destructive">
@@ -871,7 +871,6 @@ export function CompoundPage() {
                               </div>
                             )}
 
-                            {/* Discovery Info */}
                             {(generatedCompound.discoveredBy ||
                               generatedCompound.discoveryYear) && (
                               <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
@@ -899,7 +898,6 @@ export function CompoundPage() {
                               </div>
                             )}
 
-                            {/* Category / Classification */}
                             {generatedCompound.category && (
                               <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                                 <h3 className="font-semibold mb-3">
@@ -911,7 +909,6 @@ export function CompoundPage() {
                               </div>
                             )}
 
-                            {/* Isomers */}
                             {generatedCompound.isomers &&
                               generatedCompound.isomers.length > 0 && (
                                 <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
@@ -934,7 +931,6 @@ export function CompoundPage() {
                                 </div>
                               )}
 
-                            {/* Uses */}
                             {generatedCompound.uses &&
                               generatedCompound.uses.length > 0 && (
                                 <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
@@ -951,7 +947,6 @@ export function CompoundPage() {
                                 </div>
                               )}
 
-                            {/* Elements */}
                             <div className="flex flex-wrap gap-2">
                               {generatedCompound.elements.map((el) => {
                                 const element = getElementById(el.id);
@@ -968,7 +963,6 @@ export function CompoundPage() {
                               })}
                             </div>
 
-                            {/* Actions */}
                             <div className="flex gap-3 pt-4">
                               <Button
                                 onClick={handleSaveCompound}

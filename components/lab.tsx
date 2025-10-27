@@ -353,7 +353,6 @@ function KeerthiDialog({
                 </div>
               </div>
 
-              {/* Chemical Properties */}
               {(compound.reactivity ||
                 compound.stability ||
                 compound.toxicity ||
@@ -395,7 +394,6 @@ function KeerthiDialog({
                 </div>
               )}
 
-              {/* Safety Information */}
               {compound.hazards && (
                 <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
                   <h3 className="font-semibold mb-2 text-destructive">
@@ -405,7 +403,6 @@ function KeerthiDialog({
                 </div>
               )}
 
-              {/* Discovery Info */}
               {(compound.discoveredBy || compound.discoveryYear) && (
                 <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                   <h3 className="font-semibold mb-3">Discovery</h3>
@@ -428,7 +425,6 @@ function KeerthiDialog({
                 </div>
               )}
 
-              {/* Category / Classification */}
               {compound.category && (
                 <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                   <h3 className="font-semibold mb-3">Classification</h3>
@@ -436,7 +432,6 @@ function KeerthiDialog({
                 </div>
               )}
 
-              {/* Isomers */}
               {compound.isomers && compound.isomers.length > 0 && (
                 <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                   <h3 className="font-semibold mb-2">Possible Isomers</h3>
@@ -453,7 +448,6 @@ function KeerthiDialog({
                 </div>
               )}
 
-              {/* Uses */}
               {compound.uses && compound.uses.length > 0 && (
                 <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
                   <h3 className="font-semibold mb-2">Common Uses</h3>
@@ -465,7 +459,6 @@ function KeerthiDialog({
                 </div>
               )}
 
-              {/* Elements */}
               <div className="flex flex-wrap gap-2">
                 {compound.elements.map((el) => {
                   const element = getElementById(el.id);
