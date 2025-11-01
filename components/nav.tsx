@@ -32,7 +32,7 @@ export default function Navbar() {
             className="flex items-center text-sm size-8 w-auto rounded-md py-1.5 border-0"
             href="/"
           >
-            <Image src="/icon0.svg" alt="Icon" height="44" width="44" />
+            <Image src="/icon0.svg" alt="Icon" height="32" width="32" />
             <span className="sr-only">Chemixy</span>
           </Link>
         </div>
