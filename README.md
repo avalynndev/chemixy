@@ -31,7 +31,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - **Framework**: [Next.js 16](https://nextjs.org)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **UI Components**: Radix UI
+- **UI Components**: Shadcn UI
 - **AI**: Google Gemini 2.0
 - **Theme**: next-themes
 
@@ -43,15 +43,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `types/` - TypeScript type definitions
 - `config/` - Configuration files
 
-## Learn More
+<div align="center">
+  <a href="https://moonshot.hackclub.com" target="_blank">
+    <img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/35ad2be8c916670f3e1ac63c1df04d76a4b337d1_moonshot.png" 
+         alt="This project is part of Moonshot, a 4-day hackathon in Florida visiting Kennedy Space Center and Universal Studios!" 
+         style="width: 100%;">
+  </a>
+</div>
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Made with ❤️ for Keerthi**
