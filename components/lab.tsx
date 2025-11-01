@@ -188,11 +188,10 @@ export function LabPage({ page = false }: { page?: boolean }) {
                             onClick={() => handleToggleFavorite(compound.id)}
                           >
                             <Heart
-                              className={`w-4 h-4 ${
-                                compound.isFavorite
+                              className={`w-4 h-4 ${compound.isFavorite
                                   ? "fill-current text-red-500"
                                   : ""
-                              }`}
+                                }`}
                             />
                           </Button>
                           <Button
@@ -357,42 +356,42 @@ function KeerthiDialog({
                 compound.stability ||
                 compound.toxicity ||
                 compound.flammability) && (
-                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
-                  <h3 className="font-semibold mb-3">Chemical Properties</h3>
-                  <div className="space-y-2 text-sm">
-                    {compound.reactivity && (
-                      <div>
-                        <span className="text-muted-foreground">
-                          Reactivity:
-                        </span>{" "}
-                        {compound.reactivity}
-                      </div>
-                    )}
-                    {compound.stability && (
-                      <div>
-                        <span className="text-muted-foreground">
-                          Stability:
-                        </span>{" "}
-                        {compound.stability}
-                      </div>
-                    )}
-                    {compound.toxicity && (
-                      <div>
-                        <span className="text-muted-foreground">Toxicity:</span>{" "}
-                        {compound.toxicity}
-                      </div>
-                    )}
-                    {compound.flammability && (
-                      <div>
-                        <span className="text-muted-foreground">
-                          Flammability:
-                        </span>{" "}
-                        {compound.flammability}
-                      </div>
-                    )}
+                  <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                    <h3 className="font-semibold mb-3">Chemical Properties</h3>
+                    <div className="space-y-2 text-sm">
+                      {compound.reactivity && (
+                        <div>
+                          <span className="text-muted-foreground">
+                            Reactivity:
+                          </span>{" "}
+                          {compound.reactivity}
+                        </div>
+                      )}
+                      {compound.stability && (
+                        <div>
+                          <span className="text-muted-foreground">
+                            Stability:
+                          </span>{" "}
+                          {compound.stability}
+                        </div>
+                      )}
+                      {compound.toxicity && (
+                        <div>
+                          <span className="text-muted-foreground">Toxicity:</span>{" "}
+                          {compound.toxicity}
+                        </div>
+                      )}
+                      {compound.flammability && (
+                        <div>
+                          <span className="text-muted-foreground">
+                            Flammability:
+                          </span>{" "}
+                          {compound.flammability}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
               {compound.hazards && (
                 <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">

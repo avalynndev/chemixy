@@ -291,17 +291,15 @@ export function CompoundPage() {
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   onDrop={handleDrop}
-                  className={`relative w-full max-w-3xl mx-auto transition-all duration-300 ${
-                    dragOver ? "scale-105" : "scale-100"
-                  }`}
+                  className={`relative w-full max-w-3xl mx-auto transition-all duration-300 ${dragOver ? "scale-105" : "scale-100"
+                    }`}
                 >
                   {/* AI GENERATED SVG */}
-                  
+
                   <svg
                     viewBox="0 0 800 900"
-                    className={`w-full h-auto drop-shadow-2xl ${
-                      isBrewing ? "animate-pulse" : ""
-                    }`}
+                    className={`w-full h-auto drop-shadow-2xl ${isBrewing ? "animate-pulse" : ""
+                      }`}
                   >
                     <defs>
                       <radialGradient id="glowGradient" cx="50%" cy="50%">
@@ -819,46 +817,46 @@ export function CompoundPage() {
                               generatedCompound.stability ||
                               generatedCompound.toxicity ||
                               generatedCompound.flammability) && (
-                              <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
-                                <h3 className="font-semibold mb-3">
-                                  Chemical Properties
-                                </h3>
-                                <div className="space-y-2 text-sm">
-                                  {generatedCompound.reactivity && (
-                                    <div>
-                                      <span className="text-muted-foreground">
-                                        Reactivity:
-                                      </span>{" "}
-                                      {generatedCompound.reactivity}
-                                    </div>
-                                  )}
-                                  {generatedCompound.stability && (
-                                    <div>
-                                      <span className="text-muted-foreground">
-                                        Stability:
-                                      </span>{" "}
-                                      {generatedCompound.stability}
-                                    </div>
-                                  )}
-                                  {generatedCompound.toxicity && (
-                                    <div>
-                                      <span className="text-muted-foreground">
-                                        Toxicity:
-                                      </span>{" "}
-                                      {generatedCompound.toxicity}
-                                    </div>
-                                  )}
-                                  {generatedCompound.flammability && (
-                                    <div>
-                                      <span className="text-muted-foreground">
-                                        Flammability:
-                                      </span>{" "}
-                                      {generatedCompound.flammability}
-                                    </div>
-                                  )}
+                                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                                  <h3 className="font-semibold mb-3">
+                                    Chemical Properties
+                                  </h3>
+                                  <div className="space-y-2 text-sm">
+                                    {generatedCompound.reactivity && (
+                                      <div>
+                                        <span className="text-muted-foreground">
+                                          Reactivity:
+                                        </span>{" "}
+                                        {generatedCompound.reactivity}
+                                      </div>
+                                    )}
+                                    {generatedCompound.stability && (
+                                      <div>
+                                        <span className="text-muted-foreground">
+                                          Stability:
+                                        </span>{" "}
+                                        {generatedCompound.stability}
+                                      </div>
+                                    )}
+                                    {generatedCompound.toxicity && (
+                                      <div>
+                                        <span className="text-muted-foreground">
+                                          Toxicity:
+                                        </span>{" "}
+                                        {generatedCompound.toxicity}
+                                      </div>
+                                    )}
+                                    {generatedCompound.flammability && (
+                                      <div>
+                                        <span className="text-muted-foreground">
+                                          Flammability:
+                                        </span>{" "}
+                                        {generatedCompound.flammability}
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
 
                             {generatedCompound.hazards && (
                               <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
@@ -873,30 +871,30 @@ export function CompoundPage() {
 
                             {(generatedCompound.discoveredBy ||
                               generatedCompound.discoveryYear) && (
-                              <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
-                                <h3 className="font-semibold mb-3">
-                                  Discovery
-                                </h3>
-                                <div className="space-y-2 text-sm">
-                                  {generatedCompound.discoveredBy && (
-                                    <div>
-                                      <span className="text-muted-foreground">
-                                        Discovered by:
-                                      </span>{" "}
-                                      {generatedCompound.discoveredBy}
-                                    </div>
-                                  )}
-                                  {generatedCompound.discoveryYear && (
-                                    <div>
-                                      <span className="text-muted-foreground">
-                                        Year:
-                                      </span>{" "}
-                                      {generatedCompound.discoveryYear}
-                                    </div>
-                                  )}
+                                <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
+                                  <h3 className="font-semibold mb-3">
+                                    Discovery
+                                  </h3>
+                                  <div className="space-y-2 text-sm">
+                                    {generatedCompound.discoveredBy && (
+                                      <div>
+                                        <span className="text-muted-foreground">
+                                          Discovered by:
+                                        </span>{" "}
+                                        {generatedCompound.discoveredBy}
+                                      </div>
+                                    )}
+                                    {generatedCompound.discoveryYear && (
+                                      <div>
+                                        <span className="text-muted-foreground">
+                                          Year:
+                                        </span>{" "}
+                                        {generatedCompound.discoveryYear}
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
 
                             {generatedCompound.category && (
                               <div className="bg-muted/30 rounded-lg p-4 border dark:border-none">
